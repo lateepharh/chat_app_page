@@ -1,11 +1,39 @@
 import React from "react";
 import Register from "./Pages/Register";
-// import Login from "./Pages/Login";
-// import Home from "./Pages/Home";
+import Login from "./Pages/Login";
+import Home from "./Pages/Home";
 import "./Pages/style.scss";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "./components/context/AuthContex";
 
 function App() {
-  return <Register />;
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
+  //protected route
+  const ProtectedRoute = ({ children }) => {
+    if (!currentUser) {
+      return <Navigate to="/login" />;
+    }
+    return children;
+  };
+  return (
+    <Routes>
+      <Route path="/">
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;
