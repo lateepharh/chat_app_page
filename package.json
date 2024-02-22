@@ -17,7 +17,8 @@
     "react-chat-engine": "^1.11.28",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
-    "sass": "^1.70.0"
+    "sass": "^1.70.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

@@ -50,7 +50,7 @@ function Search() {
       const response = await getDoc(doc(db, "chats", combineId));
       if (!response.exists()) {
         //if respoonse doesnt exist create achat in chat collection
-        await setDoc(doc, (db, "chats", combineId), { messages: [] });
+        await setDoc(doc(db, "chats", combineId), { messages: [] });
 
         //create userchat
         await updateDoc(doc(db, "userChats", currentUser.uid), {
@@ -71,8 +71,12 @@ function Search() {
         });
       }
     } catch (err) {
-      setErr(err);
+      // setErr(err);
     }
+    //to clear the search user that was clicked
+    setUser(null);
+    setUserName("");
+    console.log("clicked");
   };
 
   const searchKey = (e) => {
@@ -88,6 +92,7 @@ function Search() {
           placeholder="Search for friends"
           onKeyDown={searchKey}
           onChange={(e) => setUserName(e.target.value)}
+          value={userName}
         />
       </div>
       {/* if thers an error */}
